@@ -69,6 +69,16 @@ This is **important**.
         self.assertEqual(tag_slug("Codex Notes"), "codex-notes")
         self.assertEqual(tag_slug("长期思考"), "长期思考")
 
+    def test_repository_template_links_favicon(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        layout = (root / "templates" / "layout.html").read_text(encoding="utf-8")
+
+        self.assertTrue((root / "assets" / "favicon.svg").exists())
+        self.assertIn(
+            '<link rel="icon" href="{{ asset_prefix }}assets/favicon.svg" type="image/svg+xml">',
+            layout,
+        )
+
     def test_build_site_uses_raw_tag_ids_and_encoded_tag_fragments(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
