@@ -375,7 +375,7 @@ def render_index(notes: list[Note]) -> str:
     return f"""
 <section class="hero">
   <p class="eyebrow">{SITE_NAME}</p>
-  <h1>个人知识花园</h1>
+  <h1>个人知识笔记</h1>
   <p>{SITE_DESCRIPTION}</p>
 </section>
 
@@ -792,7 +792,7 @@ Create `notes/2026-07-21-welcome.md`:
 title: 开始记录
 date: 2026-07-21
 tags: [notes, codex]
-summary: 这个个人知识花园从一条清晰的写作和发布链路开始。
+summary: 这个个人知识笔记从一条清晰的写作和发布链路开始。
 ---
 
 # 开始记录
@@ -830,7 +830,7 @@ Run:
 python3 -m http.server 8000 -d site
 ```
 
-Expected: local server starts at `http://0.0.0.0:8000/`. Open `http://localhost:8000/` and confirm the homepage shows `个人知识花园` and the first note.
+Expected: local server starts at `http://0.0.0.0:8000/`. Open `http://localhost:8000/` and confirm the homepage shows `个人知识笔记` and the first note.
 
 - [ ] **Step 7: Commit task**
 
@@ -1129,7 +1129,7 @@ Run:
 sed -n '1,220p' site/index.html
 ```
 
-Expected: output includes `个人知识花园`, `开始记录`, `#notes`, and `#codex`.
+Expected: output includes `个人知识笔记`, `开始记录`, `#notes`, and `#codex`.
 
 - [ ] **Step 3: Inspect generated note page**
 

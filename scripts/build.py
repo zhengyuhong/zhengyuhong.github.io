@@ -206,7 +206,7 @@ def render_index(notes: list[Note]) -> str:
     return f"""
 <section class="hero">
   <p class="eyebrow">{SITE_NAME}</p>
-  <h1>个人知识花园</h1>
+  <h1>个人知识笔记</h1>
   <p>{SITE_DESCRIPTION}</p>
 </section>
 
