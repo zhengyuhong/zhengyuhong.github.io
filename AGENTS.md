@@ -1,28 +1,28 @@
-# Repository Guidelines
+# 仓库指南
 
-## Project Structure & Module Organization
+## 项目结构与模块组织
 
-This repository is a Markdown-authored GitHub Pages site for `zhengyuhong.cn`. Write source notes in `notes/` using `YYYY-MM-DD-title.md` filenames. Shared layout lives in `templates/layout.html`, styling in `assets/style.css`, the generator in `scripts/build.py`, and tests in `tests/`. The `site/` directory is generated output and should not be edited by hand.
+这个仓库是 `zhengyuhong.cn` 的 Markdown 笔记站点。源笔记放在 `notes/`，文件名使用 `YYYY-MM-DD-title.md`。共享模板在 `templates/layout.html`，样式在 `assets/style.css`，生成脚本在 `scripts/build.py`，测试在 `tests/`。`site/` 是生成产物，不要手动编辑。
 
-## Build, Test, and Development Commands
+## 构建、测试与开发命令
 
-- `pip install -r requirements.txt` - install Markdown and YAML parsing dependencies.
-- `python3 scripts/build.py` - generate the static site into `site/`.
-- `python3 -m http.server 8000 -d site` - preview the generated site at `http://localhost:8000/`.
-- `python3 -m unittest discover -s tests -v` - run generator tests.
+- `pip install -r requirements.txt` - 安装 Markdown 和 YAML 解析依赖。
+- `python3 scripts/build.py` - 将静态网站生成到 `site/`。
+- `python3 -m http.server 8000 -d site` - 在 `http://localhost:8000/` 预览生成结果。
+- `python3 -m unittest discover -s tests -v` - 运行生成器测试。
 
-## Coding Style & Naming Conventions
+## 编码风格与命名约定
 
-Use 4-space indentation for Python and 2-space indentation for HTML/CSS. Keep Python functions small and deterministic. Use lowercase hyphenated note filenames such as `2026-07-21-reading-notes.md`. Keep front matter fields named `title`, `date`, `tags`, and `summary`.
+Python 使用 4 空格缩进，HTML/CSS 使用 2 空格缩进。Python 函数应保持短小、确定、易测试。笔记文件名使用小写英文和连字符，例如 `2026-07-21-reading-notes.md`。front matter 字段固定为 `title`、`date`、`tags`、`summary`。
 
-## Testing Guidelines
+## 测试指南
 
-Add or update `tests/test_build.py` when changing parsing, rendering, URLs, asset copying, or publishing assumptions. Run the full unittest command before committing. For visual changes, build locally and inspect the homepage plus at least one note page.
+修改解析、渲染、URL、资源复制或发布假设时，同步更新 `tests/test_build.py`。提交前运行完整 unittest 命令。视觉改动需要本地构建，并检查首页和至少一个笔记页。
 
-## Commit & Pull Request Guidelines
+## 提交与 Pull Request 规范
 
-Use short imperative commit subjects, following the existing style such as `Create CNAME` and `Add notes site generator`. Pull requests should summarize user-facing site changes, note publishing workflow changes, and include screenshots for visual updates.
+提交信息使用简短的祈使句，沿用现有风格，例如 `Create CNAME`、`Add notes site generator`。Pull Request 需要说明面向读者的网站变化、发布流程变化；涉及视觉更新时附截图。
 
-## Security & Configuration Tips
+## 安全与配置提示
 
-Do not commit secrets, tokens, analytics credentials, or private drafts. Keep `CNAME` at the repository root and ensure the build copies it into `site/`.
+不要提交密钥、令牌、统计服务凭据或私人草稿。`CNAME` 必须保留在仓库根目录，并确保构建时复制到 `site/`。
