@@ -19,6 +19,7 @@ SITE_NAME = "zhengyuhong.cn"
 SITE_DESCRIPTION = "这里记录技术、思考和长期积累的笔记。"
 
 FRONT_MATTER_RE = re.compile(r"\A---\s*\n(.*?)\n---\s*\n?(.*)\Z", re.DOTALL)
+NOTE_FILENAME_RE = re.compile(r"\A(\d{4}-\d{2}-\d{2})-[a-z0-9]+(?:-[a-z0-9]+)*\.md\Z")
 
 
 @dataclass(frozen=True)
@@ -35,7 +36,11 @@ class Note:
 
 def tag_slug(tag: str) -> str:
     normalized = re.sub(r"\s+", "-", tag.strip().lower())
-    return quote(normalized, safe="-")
+    return re.sub(r"[^\w-]+", "-", normalized).strip("-")
+
+
+def tag_fragment(tag: str) -> str:
+    return quote(tag_slug(tag), safe="-_")
 
 
 def note_url(note: Note) -> str:
@@ -80,7 +85,10 @@ def metadata_tags(metadata: dict[str, Any], source_path: Path) -> tuple[str, ...
     if not isinstance(value, list):
         raise ValueError(f"{source_path}: tags must be a YAML list")
 
-    tags = tuple(str(tag).strip() for tag in value if str(tag).strip())
+    if any(not isinstance(tag, str) or not tag.strip() for tag in value):
+        raise ValueError(f"{source_path}: tags must contain only non-empty strings")
+
+    tags = tuple(dict.fromkeys(tag.strip() for tag in value))
     if not tags:
         raise ValueError(f"{source_path}: tags must include at least one tag")
     return tags
@@ -94,18 +102,44 @@ def render_markdown(markdown_text: str) -> str:
     )
 
 
+def strip_duplicate_title(body: str, title: str) -> str:
+    heading = f"# {title}"
+    if body == heading:
+        return ""
+    if body.startswith(f"{heading}\n"):
+        return body[len(heading):].lstrip()
+    return body
+
+
+def validate_note_filename(path: Path, note_date: date) -> None:
+    match = NOTE_FILENAME_RE.match(path.name)
+    if not match:
+        raise ValueError(f"{path}: filename must use YYYY-MM-DD-title.md")
+
+    try:
+        filename_date = date.fromisoformat(match.group(1))
+    except ValueError as exc:
+        raise ValueError(f"{path}: filename must use YYYY-MM-DD-title.md") from exc
+
+    if filename_date != note_date:
+        raise ValueError(f"{path}: filename date must match front matter date")
+
+
 def parse_note(path: Path) -> Note:
     metadata, body = parse_front_matter(path.read_text(encoding="utf-8"), path)
     note_date = parse_date(metadata.get("date"), path)
+    title = metadata_text(metadata, "title", path)
+    validate_note_filename(path, note_date)
+    body_markdown = strip_duplicate_title(body, title)
     return Note(
         source_path=path,
         slug=path.stem,
-        title=metadata_text(metadata, "title", path),
+        title=title,
         date=note_date,
         tags=metadata_tags(metadata, path),
         summary=metadata_text(metadata, "summary", path),
-        body_markdown=body,
-        body_html=render_markdown(body),
+        body_markdown=body_markdown,
+        body_html=render_markdown(body_markdown),
     )
 
 
@@ -115,7 +149,7 @@ def load_notes(notes_dir: Path) -> list[Note]:
 
 
 def tag_link(tag: str, base: str = "") -> str:
-    return f'<a class="tag" href="{base}#tag-{tag_slug(tag)}">#{escape(tag)}</a>'
+    return f'<a class="tag" href="{base}#tag-{tag_fragment(tag)}">#{escape(tag)}</a>'
 
 
 def render_tag_links(tags: tuple[str, ...], base: str = "") -> str:
@@ -154,7 +188,7 @@ def render_tag_index(notes: list[Note]) -> str:
         )
         sections.append(
             f"""
-<section class="tag-group" id="tag-{tag_slug(tag)}">
+<section class="tag-group" id="tag-{escape(tag_slug(tag), quote=True)}">
   <h3>#{escape(tag)}</h3>
   <ul>{links}</ul>
 </section>
@@ -213,13 +247,12 @@ def render_layout(root: Path, title: str, description: str, content: str, body_c
         "{{ title }}": escape(page_title),
         "{{ description }}": escape(description),
         "{{ site_name }}": escape(SITE_NAME),
-        "{{ content }}": content,
         "{{ body_class }}": escape(body_class),
         "{{ asset_prefix }}": asset_prefix,
     }
     for token, value in replacements.items():
         template = template.replace(token, value)
-    return template
+    return template.replace("{{ content }}", content)
 
 
 def prepare_site_dir(site_dir: Path) -> None:
@@ -234,8 +267,9 @@ def copy_static_files(root: Path, site_dir: Path) -> None:
         shutil.copytree(assets_dir, site_dir / "assets")
 
     cname_path = root / "CNAME"
-    if cname_path.exists():
-        shutil.copy2(cname_path, site_dir / "CNAME")
+    if not cname_path.exists():
+        raise FileNotFoundError(cname_path)
+    shutil.copy2(cname_path, site_dir / "CNAME")
 
 
 def build_site(root: Path = ROOT) -> None:
