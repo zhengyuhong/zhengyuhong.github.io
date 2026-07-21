@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from scripts.build import build_site, load_notes, tag_slug
+from scripts.build import build_site, load_notes, strip_duplicate_title, tag_slug
 
 
 class BuildSiteTests(unittest.TestCase):
@@ -94,6 +94,35 @@ Body
             self.assertIn('href="#tag-%E9%95%BF%E6%9C%9F%E6%80%9D%E8%80%83"', index_html)
             self.assertIn('id="tag-长期思考"', index_html)
 
+    def test_build_site_keeps_punctuation_in_tag_ids_and_encodes_fragments(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            self.write_layout(root)
+            self.write_note(
+                root,
+                "2026-07-21-punctuation-tags.md",
+                """---
+title: Punctuation Tags
+date: 2026-07-21
+tags: [C++, C#, "!!!"]
+summary: A punctuation tag test.
+---
+
+Body
+""",
+            )
+            (root / "CNAME").write_text("zhengyuhong.cn\n", encoding="utf-8")
+
+            build_site(root)
+
+            index_html = (root / "site" / "index.html").read_text(encoding="utf-8")
+            self.assertIn('id="tag-c++"', index_html)
+            self.assertIn('id="tag-c#"', index_html)
+            self.assertIn('id="tag-!!!"', index_html)
+            self.assertIn('href="#tag-c%2B%2B"', index_html)
+            self.assertIn('href="#tag-c%23"', index_html)
+            self.assertIn('href="#tag-%21%21%21"', index_html)
+
     def test_note_page_strips_duplicate_leading_markdown_title(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
@@ -119,6 +148,14 @@ Body
 
             note_html = (root / "site" / "notes" / "2026-07-21-duplicate-title.html").read_text(encoding="utf-8")
             self.assertEqual(note_html.count("<h1>Duplicate Title</h1>"), 1)
+
+    def test_strip_duplicate_title_accepts_equivalent_atx_h1_forms(self) -> None:
+        self.assertEqual(strip_duplicate_title("# Duplicate Title #\n\nBody", "Duplicate Title"), "Body")
+        self.assertEqual(strip_duplicate_title("# Duplicate Title  \n\nBody", "Duplicate Title"), "Body")
+
+    def test_strip_duplicate_title_keeps_non_h1_and_different_titles(self) -> None:
+        self.assertEqual(strip_duplicate_title("## Duplicate Title\n\nBody", "Duplicate Title"), "## Duplicate Title\n\nBody")
+        self.assertEqual(strip_duplicate_title("# Another Title\n\nBody", "Duplicate Title"), "# Another Title\n\nBody")
 
     def test_load_notes_rejects_invalid_filename(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

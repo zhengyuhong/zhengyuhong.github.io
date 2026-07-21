@@ -20,6 +20,9 @@ SITE_DESCRIPTION = "这里记录技术、思考和长期积累的笔记。"
 
 FRONT_MATTER_RE = re.compile(r"\A---\s*\n(.*?)\n---\s*\n?(.*)\Z", re.DOTALL)
 NOTE_FILENAME_RE = re.compile(r"\A(\d{4}-\d{2}-\d{2})-[a-z0-9]+(?:-[a-z0-9]+)*\.md\Z")
+ATX_H1_RE = re.compile(
+    r"\A {0,3}#(?!#)[ \t]+(?P<heading>.*?)(?:[ \t]+#+[ \t]*)?(?:\n|\Z)"
+)
 
 
 @dataclass(frozen=True)
@@ -35,8 +38,7 @@ class Note:
 
 
 def tag_slug(tag: str) -> str:
-    normalized = re.sub(r"\s+", "-", tag.strip().lower())
-    return re.sub(r"[^\w-]+", "-", normalized).strip("-")
+    return re.sub(r"\s+", "-", tag.strip().lower())
 
 
 def tag_fragment(tag: str) -> str:
@@ -103,12 +105,10 @@ def render_markdown(markdown_text: str) -> str:
 
 
 def strip_duplicate_title(body: str, title: str) -> str:
-    heading = f"# {title}"
-    if body == heading:
-        return ""
-    if body.startswith(f"{heading}\n"):
-        return body[len(heading):].lstrip()
-    return body
+    match = ATX_H1_RE.match(body)
+    if not match or match.group("heading").rstrip() != title:
+        return body
+    return body[match.end():].lstrip()
 
 
 def validate_note_filename(path: Path, note_date: date) -> None:
