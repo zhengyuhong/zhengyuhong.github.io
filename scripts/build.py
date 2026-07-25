@@ -17,6 +17,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 SITE_NAME = "zhengyuhong.cn"
 SITE_DESCRIPTION = "这里记录技术、思考和长期积累的笔记。"
+SITE_EMAIL = "zhengyuhong.cn@gmail.com"
 
 FRONT_MATTER_RE = re.compile(r"\A---\s*\n(.*?)\n---\s*\n?(.*)\Z", re.DOTALL)
 NOTE_FILENAME_RE = re.compile(r"\A(\d{4}-\d{2}-\d{2})-[a-z0-9]+(?:-[a-z0-9]+)*\.md\Z")
@@ -207,7 +208,7 @@ def render_index(notes: list[Note]) -> str:
 <section class="hero">
   <p class="eyebrow">{SITE_NAME}</p>
   <h1>个人知识笔记</h1>
-  <p>{SITE_DESCRIPTION}</p>
+  <p>{SITE_DESCRIPTION}<br><a href="mailto:{escape(SITE_EMAIL)}">{escape(SITE_EMAIL)}</a></p>
 </section>
 
 <section class="content-section">

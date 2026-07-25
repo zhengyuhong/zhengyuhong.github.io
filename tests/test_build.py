@@ -329,6 +329,31 @@ Generated body.
             self.assertEqual((root / "site" / "CNAME").read_text(encoding="utf-8"), "zhengyuhong.cn\n")
             self.assertTrue((root / "site" / "assets" / "style.css").exists())
 
+    def test_homepage_includes_contact_email(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            self.write_layout(root)
+            self.write_note(
+                root,
+                "2026-07-21-contact.md",
+                """---
+title: Contact Note
+date: 2026-07-21
+tags: [notes]
+summary: A contact test.
+---
+
+Body
+""",
+            )
+            (root / "CNAME").write_text("zhengyuhong.cn\n", encoding="utf-8")
+
+            build_site(root)
+
+            index_html = (root / "site" / "index.html").read_text(encoding="utf-8")
+            self.assertIn('href="mailto:zhengyuhong.cn@gmail.com"', index_html)
+            self.assertIn("zhengyuhong.cn@gmail.com", index_html)
+
 
 if __name__ == "__main__":
     unittest.main()
