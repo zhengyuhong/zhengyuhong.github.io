@@ -17,6 +17,28 @@ summary: Mikolov 等人的 Word2Vec 论文把词向量训练从昂贵神经语�
   <strong>一句话总结：</strong>这篇论文的关键贡献，是把词向量训练从昂贵的神经语言模型中抽离出来，删掉最耗算的非线性隐藏层，用 CBOW 和 Skip-gram 两个浅层 log-linear 架构，在大语料上以更低复杂度学到能稳定表达语义和句法关系的向量空间。
 </div>
 
+## 图解速览
+
+![Word2Vec 封面](../assets/images/word2vec-illustrated/00-cover.png)
+
+这篇论文的核心不是“第一次提出词向量”，而是把词向量训练做成足够轻量的工程工具：输入文本序列，经过 CBOW / Skip-gram 两个预测任务，输出能保留语义方向的向量空间。
+
+![方法总览](../assets/images/word2vec-illustrated/01-method-overview.png)
+
+传统 NNLM / RNNLM 的瓶颈在隐藏层和大词表输出。本文的关键取舍是去掉昂贵的非线性隐藏层，保留共享词向量矩阵，再用 hierarchical softmax 把输出层成本压到树路径长度。
+
+![CBOW 机制](../assets/images/word2vec-illustrated/02-cbow.png)
+
+CBOW 用上下文预测中心词。它把窗口里的上下文词查表成向量，求和或平均成一个上下文表示，再预测中间词。这个机制忽略词序，但训练快，句法规律表现尤其稳定。
+
+![Skip-gram 机制](../assets/images/word2vec-illustrated/03-skip-gram.png)
+
+Skip-gram 用中心词预测周围词。一个中心词会展开成多个监督信号，因此比 CBOW 慢一些，但能给语义关系和稀有词更多训练机会。
+
+![类比评测与关键结果](../assets/images/word2vec-illustrated/04-results.png)
+
+论文最有说服力的评测，是把语义和句法关系变成向量类比题：先做向量运算，再找最近词，完全命中才算对。这让“词向量里有线性关系”从漂亮例子变成了可批量计分的实验。
+
 ## 研究背景与动机
 
 2013 年以前，连续词向量已经不是新概念。Bengio 等人的 neural probabilistic language model 已经说明，可以用一个投影层把 one-hot 词索引映射到稠密向量，再通过神经网络预测语言模型概率。Collobert、Weston、Mnih、Huang 等工作也展示了词向量在 NLP 任务中的价值。问题在于，这些模型通常把词向量学习绑定在更复杂的语言模型上：要预测下一个词，要计算隐藏层，要处理巨大词表输出层。词向量是有价值的，但获取它们的成本很高。
