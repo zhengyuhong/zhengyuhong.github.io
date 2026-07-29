@@ -1,7 +1,7 @@
 ---
 title: Kimi K3 图解笔记
 date: 2026-07-28
-tags: [技术, LLM, 多模态, MoE]
+tags: [技术, LLM, 多模态, MoE, kimi]
 summary: Kimi K3 的核心不只是 2.8T 参数，而是用 KDA、AttnRes 和 Stable LatentMoE 同时扩展序列长度、网络深度和模型宽度。
 ---
 
