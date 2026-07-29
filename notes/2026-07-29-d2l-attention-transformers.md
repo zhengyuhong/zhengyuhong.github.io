@@ -2,7 +2,7 @@
 title: D2L 第 11 章 Attention Mechanisms and Transformers 深度解读
 date: 2026-07-29
 tags: [技术, 深度学习, Transformer, Attention, D2L]
-summary: 从 QKV 注意力池化讲到多头、自注意力、位置编码、Transformer、ViT 和大规模预训练的系统解读。
+summary: 从 QKV 注意力池化讲到多头、自注意力、位置编码、Transformer、ViT 和大规模预训练的系统解读，附中文 sketchnote 图解。
 ---
 
 # D2L 第 11 章 Attention Mechanisms and Transformers 深度解读
@@ -30,6 +30,70 @@ D2L 第 11 章的主线是：先把注意力解释成可微的键值检索，再
     F --&gt; G[&quot;Transformer encoder-decoder&quot;]
     G --&gt; H[&quot;ViT: image patches as tokens&quot;]
     G --&gt; I[&quot;Pretraining: BERT, T5, GPT&quot;]</pre>
+
+## 0. 图解版速览
+
+下面这组中文 sketchnote 用 10 页把本章主线拆开：先把 attention 理解成 Q/K/V 检索，再进入打分函数、Bahdanau 动态对齐、多头注意力、自注意力、位置编码、Transformer block，最后收束到 BERT、T5、GPT 和 ViT。
+
+### 0.1 封面：Attention 到 Transformer
+
+![注意力机制与 Transformer 封面](../assets/attention-transformers-sketchnote/00-cover.png)
+
+Attention 的核心问题是：当前 token 应该看哪里？Transformer 的核心做法是把这个“按需取证”的操作堆叠成可训练、可并行、可扩展的通用架构。
+
+### 0.2 Q/K/V：把注意力看成检索
+
+![Q/K/V 注意力检索](../assets/attention-transformers-sketchnote/01-qkv.png)
+
+Query 表示当前问题，Key 决定匹配，Value 承载要被取出的内容。注意力输出不是硬查找某一项，而是对所有 Value 做 soft 加权求和。
+
+### 0.3 打分函数：从相似度到权重
+
+![注意力打分函数](../assets/attention-transformers-sketchnote/02-scoring.png)
+
+注意力计算可以看成四步：打分、mask、softmax、加权 Value。缩放点积注意力里的 `÷√d` 用来控制点积尺度，避免 softmax 过早饱和。
+
+### 0.4 Bahdanau：解码时动态对齐
+
+![Bahdanau attention 动态对齐](../assets/attention-transformers-sketchnote/03-bahdanau.png)
+
+Bahdanau attention 打破了普通 seq2seq 的固定上下文瓶颈：decoder 每生成一个词，都会用当前状态重新查询 encoder 的所有 hidden states。
+
+### 0.5 Multi-Head：多个子空间同时看
+
+![多头注意力](../assets/attention-transformers-sketchnote/04-multihead.png)
+
+多头不是重复计算，而是让不同投影子空间分别学习不同关系；最后再把各个 head 的结果拼接并线性混合。
+
+### 0.6 Self-Attention：同一句里互相看
+
+![自注意力](../assets/attention-transformers-sketchnote/05-self-attention.png)
+
+Self-attention 让任意两个 token 一步相连，长距离依赖路径变短，但也带来 `O(n^2 d)` 的序列长度平方代价。Q/K/V 都由同一序列投影得到，但三者不是同一个矩阵。
+
+### 0.7 位置编码：给并行模型补上顺序
+
+![位置编码](../assets/attention-transformers-sketchnote/06-position.png)
+
+Self-attention 本身不保序，因此需要把位置编码加到 token embedding 上。正弦/余弦位置编码用不同频率同时表达全局位置和局部差异。
+
+### 0.8 Encoder Block：Attention + FFN + AddNorm
+
+![Transformer encoder block](../assets/attention-transformers-sketchnote/07-block.png)
+
+Encoder block 里，attention 负责混合 token 间信息，positionwise FFN 负责提升每个 token 的表示，残差和 LayerNorm 则让深层堆叠更稳定。
+
+### 0.9 Transformer：编码器-解码器总装
+
+![Transformer encoder-decoder 架构](../assets/attention-transformers-sketchnote/08-architecture.png)
+
+完整 Transformer 同时使用 encoder self-attention、decoder masked self-attention 和 cross-attention。mask 防止 decoder 偷看未来，cross-attention 负责读取源句记忆。
+
+### 0.10 从架构到范式：BERT / T5 / GPT / ViT
+
+![Transformer 家族](../assets/attention-transformers-sketchnote/09-families.png)
+
+同一个 Transformer 积木，换掉 attention pattern 和训练目标，就会变成不同范式：BERT 偏理解，T5 偏转换，GPT 偏生成，ViT 把图像 patch 当 token。
 
 ## 1. 研究背景与动机
 
