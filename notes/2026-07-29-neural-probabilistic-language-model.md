@@ -15,6 +15,46 @@ summary: Bengio 等人在 2003 年把语言模型从统计短片段计数推进�
   <strong>一句话总结：</strong>这篇论文把语言模型从“统计短片段出现次数”推进到“学习词的连续向量表示，再用光滑神经网络预测下一个词”：它不是只改了一个模型结构，而是把词嵌入、神经概率建模、联合训练和大规模 softmax 工程问题放进了同一个框架里。
 </div>
 
+## 图解阅读笔记：6 张图先抓主线
+
+这组图解按论文的方法逻辑来读：先看它如何从 n-gram 的离散记忆转向连续向量空间，再看模型结构、泛化机制、训练瓶颈和实验结果。
+
+### 1. 从 n-gram 到 embedding 语言模型
+
+![A Neural Probabilistic Language Model 图解封面](../assets/images/bengio03a-illustrated/01-cover.png)
+
+这篇论文的历史位置，是把语言模型从“查离散短片段表格”推进到“词向量 + 神经概率函数”。它没有发明今天意义上的大语言模型，但已经把 embedding、上下文向量、MLP 和 softmax 放在了同一条端到端训练链路里。
+
+### 2. 神经概率语言模型总览
+
+![神经概率语言模型总览](../assets/images/bengio03a-illustrated/02-method-overview.png)
+
+模型先用共享词向量表 `C` 查出上下文中每个词的稠密向量，再把这些向量拼接成 `x`，经过隐藏层和可选 direct path，最后用 softmax 得到整个词表上的下一个词概率分布。
+
+### 3. 泛化机制：一句话影响一片邻居
+
+![泛化机制：一句话影响一片邻居](../assets/images/bengio03a-illustrated/03-generalization.png)
+
+论文最核心的直觉在这里：如果 `cat` 和 `dog`、`room` 和 `bedroom` 在向量空间里靠近，那么一个训练句子不只提高自身概率，也会提高许多语义和语法相近句子的概率。
+
+### 4. `g` 的内部：从向量到概率
+
+![g 的内部：从向量到概率](../assets/images/bengio03a-illustrated/04-network-details.png)
+
+概率函数 `g` 可以拆成两条路径：隐藏层路径捕捉非线性组合，direct path 学更直接的线性映射。两者汇入 logits 之后，再通过 softmax 归一化为下一个词概率。
+
+### 5. 训练难点：大词表 softmax 太贵
+
+![训练难点：大词表 softmax 太贵](../assets/images/bengio03a-illustrated/05-training-parallel.png)
+
+训练目标是最大化真实下一个词的 log probability，同时更新词向量和网络权重。真正昂贵的是完整 softmax：每一步都要扫整个词表，因此论文专门讨论了把输出层按词表切分到多 CPU 上并行计算。
+
+### 6. 结果与读后结论
+
+![结果与读后结论](../assets/images/bengio03a-illustrated/06-results-takeaways.png)
+
+实验上，神经模型在 Brown 和 AP News 上都优于强 n-gram 基线；与 trigram 混合还能继续提升，说明神经模型和 n-gram 的错误模式有互补性。
+
 ## 1. 研究背景与动机
 
 统计语言模型的目标，是给一个词序列分配概率。若一句话写作 $w_1,w_2,\ldots,w_T$，最自然的分解方式是把整句概率写成一串条件概率的乘积：
