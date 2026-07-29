@@ -7,6 +7,12 @@
     <title>{{ title }}</title>
     <link rel="icon" href="{{ asset_prefix }}assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="{{ asset_prefix }}assets/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+      onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
   </head>
   <body class="{{ body_class }}">
     <header class="site-header">
