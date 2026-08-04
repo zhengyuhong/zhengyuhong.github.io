@@ -1,11 +1,11 @@
 ---
-title: Word2Vec 的原点：为什么简单模型反而学出了更好的词向量
+title: Efficient Estimation of Word Representations in Vector Space
 date: 2026-07-29
 tags: [技术, NLP, 论文, Word2Vec, embeddings]
 summary: Mikolov 等人的 Word2Vec 论文把词向量训练从昂贵神经语言模型中抽离出来，用 CBOW 和 Skip-gram 让大规模词表示训练成为基础工具。
 ---
 
-# Word2Vec 的原点：为什么简单模型反而学出了更好的词向量
+# Efficient Estimation of Word Representations in Vector Space
 
 论文：[Efficient Estimation of Word Representations in Vector Space](https://arxiv.org/abs/1301.3781)，Tomas Mikolov, Kai Chen, Greg Corrado, Jeffrey Dean，ICLR 2013 Workshop Poster。
 
