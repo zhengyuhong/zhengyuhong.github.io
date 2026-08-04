@@ -1,11 +1,11 @@
 ---
-title: DataFlow-Harness 的工程启发
+title: "DataFlow-Harness: A Grounded Code-Agent Platform for Constructing Editable LLM Data Pipelines"
 date: 2026-07-28
-tags: [技术, Agent, LLM, 数据流水线]
+tags: [技术, Agent, LLM, 数据流水线, harness]
 summary: DataFlow-Harness 的重点不是让 Agent 写一次性脚本，而是把 Agent 放进可编辑、可验证、可回滚的 pipeline harness 里。
 ---
 
-# DataFlow-Harness 的工程启发
+# DataFlow-Harness: A Grounded Code-Agent Platform for Constructing Editable LLM Data Pipelines
 
 这篇笔记来自对微信文章《数据准备账单大降72.5%！北大系团队最新Harness项目开源，冲上Hugging Face日榜第二》和论文 [DataFlow-Harness: A Grounded Code-Agent Platform for Constructing Editable LLM Data Pipelines](https://arxiv.org/abs/2607.16617) 的阅读。
 

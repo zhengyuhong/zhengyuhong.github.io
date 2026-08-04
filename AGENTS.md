@@ -41,9 +41,9 @@ Python 使用 4 空格缩进，HTML/CSS 使用 2 空格缩进。Python 函数应
 
 ### 转成本站 Markdown 笔记
 
-- 最终产物必须发布为 `notes/YYYY-MM-DD-<paper-title-slug>.md`，不要只把结果留在 `papers/`、`output/`、`downloads/` 或 `tmp/`。
+- 最终产物必须发布为 `notes/YYYY-MM-DD-<paper-title-slug>.md`，不要只把结果留在 `papers/`、`output/`、`downloads/` 或 `tmp/`。文件名必须使用日期 + 论文标题 slug：英文论文标题转为小写 kebab-case，去掉标点；中文论文标题转为无声调拼音 kebab-case。不要用泛化主题、随意缩写或 `illustrated` 替代论文标题；只有标题过长时，才可保留论文主标题并省略副标题。
 - Markdown front matter 必须包含 `title`、`date`、`tags`、`summary`。`date` 与文件名前缀保持一致；`tags` 至少包含 `论文`、`论文图解`、`sketchnote`，并按论文主题补充 2-5 个标签。
-- 发布标题尽量与论文标题一致：front matter `title` 和正文 H1 优先使用论文原题，不要改写成泛化中文标题。需要强调图解属性时，用副标题、导语或标签表达，而不是替换论文原题。
+- 发布标题必须对齐论文标题：front matter `title` 和正文 H1 默认使用论文原题，不要改写成泛化中文标题，也不要追加“图解笔记”“深度解读”等后缀。需要强调图解属性时，用副标题、导语、摘要或标签表达，而不是替换论文原题。
 - 正文结构建议包含：论文链接、作者/会议或年份（如果可确认）、一句话总结、每张图的章节、图下中文讲解、最后 3 个核心要点。
 - 生成图片放到 `assets/images/<note-slug>/`，Markdown 中使用 `../assets/images/<note-slug>/<file>.png` 引用。不要引用本机绝对路径。
 - 如果 `paper-comic` 已在其他目录生成图片或草稿，需要把可发布的 Markdown 和图片整理到 `notes/` 与 `assets/images/` 后再构建。

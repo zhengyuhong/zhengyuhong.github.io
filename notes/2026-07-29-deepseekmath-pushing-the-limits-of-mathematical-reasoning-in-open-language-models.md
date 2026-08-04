@@ -1,11 +1,11 @@
 ---
-title: DeepSeekMath 图解笔记
+title: "DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models"
 date: 2026-07-29
 tags: [技术, LLM, 数学推理, DeepSeek, 论文]
 summary: DeepSeekMath 用 120B 数学网页语料继续预训练 7B 模型，再用 GRPO 强化学习提升数学推理，让开源小模型在 MATH 上突破 50%。
 ---
 
-# DeepSeekMath 图解笔记
+# DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models
 
 这篇笔记来自论文 [DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models](https://arxiv.org/abs/2402.03300)。
 

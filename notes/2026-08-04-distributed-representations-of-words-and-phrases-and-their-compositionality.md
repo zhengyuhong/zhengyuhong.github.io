@@ -61,5 +61,4 @@ Negative Sampling 把“预测所有词”改成“区分真实上下文和噪�
 
 ## 和前一篇 Word2Vec 论文的关系
 
-如果说 [Efficient Estimation of Word Representations in Vector Space](./2026-07-29-word2vec-efficient-estimation.html) 解决的是“怎样用 CBOW / Skip-gram 高效学词向量”，这篇论文解决的是“怎样让 Skip-gram 在更大语料上训练得更快，并扩展到短语”。两篇合起来，才更接近后来大家熟悉的 Word2Vec 工具体系。
-
+如果说 [Efficient Estimation of Word Representations in Vector Space](./2026-07-29-efficient-estimation-of-word-representations-in-vector-space.html) 解决的是“怎样用 CBOW / Skip-gram 高效学词向量”，这篇论文解决的是“怎样让 Skip-gram 在更大语料上训练得更快，并扩展到短语”。两篇合起来，才更接近后来大家熟悉的 Word2Vec 工具体系。

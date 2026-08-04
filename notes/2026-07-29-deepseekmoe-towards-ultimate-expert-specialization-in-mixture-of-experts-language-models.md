@@ -1,11 +1,11 @@
 ---
-title: DeepSeekMoE 图解笔记
+title: "DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models"
 date: 2026-07-29
 tags: [技术, LLM, MoE, DeepSeek, 论文]
 summary: DeepSeekMoE 通过细粒度专家切分和共享专家隔离，让 MoE 专家更专门、冗余更少，并在较低激活计算下接近 dense 模型表现。
 ---
 
-# DeepSeekMoE 图解笔记
+# DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models
 
 这篇笔记来自论文 [DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models](https://arxiv.org/abs/2401.06066)。
 

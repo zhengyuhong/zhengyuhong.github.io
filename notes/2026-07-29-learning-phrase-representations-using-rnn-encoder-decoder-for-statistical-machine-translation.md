@@ -1,11 +1,11 @@
 ---
-title: RNN Encoder-Decoder 短语表示学习图解
+title: Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation
 date: 2026-07-29
 tags: [技术, 深度学习, 机器翻译, RNN, Seq2Seq]
 summary: 图解 Cho et al. 2014 的 RNN Encoder-Decoder：短语如何被编码成向量、门控隐藏单元如何记忆与遗忘，以及神经短语分数如何接入传统 SMT。
 ---
 
-# RNN Encoder-Decoder 短语表示学习图解
+# Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation
 
 论文：[Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation](https://arxiv.org/abs/1406.1078)
 
@@ -58,4 +58,3 @@ encoder 逐词更新隐藏状态，读到 `<eos>` 后把最后状态作为 `c`�
 1. **结构贡献**：用 encoder 把变长源短语映射成固定向量 `c`，再用 decoder 条件生成目标短语。
 2. **机制贡献**：提出带 reset/update gate 的隐藏单元，让 RNN 更容易学习“该忘什么、该保留什么”。
 3. **系统贡献**：把神经短语分数作为传统 SMT 的额外特征，带来可测的 BLEU 提升，并与 CSLM 互补。
-

@@ -5,4 +5,4 @@ alwaysApply: true
 
 Follow `AGENTS.md` as the canonical project instruction file.
 
-When creating paper notes with `paper-comic`, default to Chinese `sketchnote` paper-reading notes with as many useful diagrams as the paper needs within the 1-10 page limit. Convert the final result into `notes/YYYY-MM-DD-<paper-title-slug>.md`, keep the published title close to the original paper title, put images in `assets/images/<note-slug>/`, build and test the site, and push the publication to `main` when the note is ready.
+When creating paper notes with `paper-comic`, default to Chinese `sketchnote` paper-reading notes with as many useful diagrams as the paper needs within the 1-10 page limit. Convert the final result into `notes/YYYY-MM-DD-<paper-title-slug>.md`; the slug must come from the paper title in lowercase kebab-case, or from pinyin kebab-case when the paper title is Chinese. Use the original paper title for front matter `title` and the body H1, without adding “图解笔记”, “深度解读”, generic rewrites, or arbitrary abbreviations. Put images in `assets/images/<note-slug>/`, build and test the site, and push the publication to `main` when the note is ready.

@@ -1,11 +1,11 @@
 ---
-title: DeepSeek-Coder 图解笔记
+title: "DeepSeek-Coder: When the Large Language Model Meets Programming"
 date: 2026-07-29
 tags: [技术, LLM, DeepSeek, Code, 论文]
 summary: DeepSeek-Coder 的核心不是单个新模块，而是用高质量 repo-level 代码语料、FIM 预训练、16K 长上下文和指令微调组合出强代码能力。
 ---
 
-# DeepSeek-Coder 图解笔记
+# DeepSeek-Coder: When the Large Language Model Meets Programming
 
 这篇笔记来自论文 [DeepSeek-Coder: When the Large Language Model Meets Programming](https://arxiv.org/abs/2401.14196)。
 

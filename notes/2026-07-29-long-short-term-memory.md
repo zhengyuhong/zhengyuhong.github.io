@@ -1,11 +1,11 @@
 ---
-title: Long Short-Term Memory 论文图解
+title: Long Short-Term Memory
 date: 2026-07-29
 tags: [技术, 深度学习, RNN, LSTM, 论文图解]
 summary: 图解 Hochreiter 和 Schmidhuber 1997 年 LSTM 原始论文：CEC 如何维持稳定误差流，input gate 与 output gate 如何控制写入和读出，以及实验怎样验证长时依赖能力。
 ---
 
-# Long Short-Term Memory 论文图解
+# Long Short-Term Memory
 
 论文：[Long Short-Term Memory](https://ieeexplore.ieee.org/abstract/document/6795963)
 
