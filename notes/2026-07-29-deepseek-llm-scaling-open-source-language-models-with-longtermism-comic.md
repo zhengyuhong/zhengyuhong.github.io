@@ -1,11 +1,11 @@
 ---
-title: "DeepSeek LLM: Scaling Open-Source Language Models with Longtermism"
+title: "DeepSeek LLM: Scaling Open-Source Language Models with Longtermism 图解"
 date: 2026-07-29
 tags: [技术, LLM, DeepSeek, Scaling Law, 论文]
 summary: DeepSeek LLM 的核心不是新模块，而是用 scaling law 指导 7B/67B 开源大模型的长期训练，再通过 SFT 和 DPO 把 Base 能力对齐成 Chat 能力。
 ---
 
-# DeepSeek LLM: Scaling Open-Source Language Models with Longtermism
+# DeepSeek LLM: Scaling Open-Source Language Models with Longtermism 图解
 
 这篇笔记来自论文 [DeepSeek LLM: Scaling Open-Source Language Models with Longtermism](https://arxiv.org/abs/2401.02954)。
 

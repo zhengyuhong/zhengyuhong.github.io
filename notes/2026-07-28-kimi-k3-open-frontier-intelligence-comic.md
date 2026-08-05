@@ -1,11 +1,11 @@
 ---
-title: "Kimi K3: Open Frontier Intelligence"
+title: "Kimi K3: Open Frontier Intelligence 图解"
 date: 2026-07-28
 tags: [技术, LLM, 多模态, MoE, kimi]
 summary: Kimi K3 的核心不只是 2.8T 参数，而是用 KDA、AttnRes 和 Stable LatentMoE 同时扩展序列长度、网络深度和模型宽度。
 ---
 
-# Kimi K3: Open Frontier Intelligence
+# Kimi K3: Open Frontier Intelligence 图解
 
 这篇笔记来自对 Hugging Face 模型卡 [moonshotai/Kimi-K3](https://huggingface.co/moonshotai/Kimi-K3) 和技术报告 [Kimi K3: Open Frontier Intelligence](https://www.alphaxiv.org/abs/2607.kimi-k3-report) 的阅读。
 

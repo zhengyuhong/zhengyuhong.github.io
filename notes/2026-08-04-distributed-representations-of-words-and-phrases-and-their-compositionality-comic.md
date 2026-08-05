@@ -1,11 +1,11 @@
 ---
-title: Distributed Representations of Words and Phrases and their Compositionality
+title: Distributed Representations of Words and Phrases and their Compositionality 图解
 date: 2026-08-04
 tags: [技术, NLP, Word2Vec, embeddings, 论文图解]
 summary: Mikolov 等人在这篇 Word2Vec 后续论文中引入 Negative Sampling、高频词下采样和短语发现，让 Skip-gram 更快、更准，也能直接学习短语向量。
 ---
 
-# Distributed Representations of Words and Phrases and their Compositionality
+# Distributed Representations of Words and Phrases and their Compositionality 图解
 
 论文：[Distributed Representations of Words and Phrases and their Compositionality](https://arxiv.org/abs/1310.4546)，Tomas Mikolov, Ilya Sutskever, Kai Chen, Greg Corrado, Jeffrey Dean，NIPS 2013。
 
@@ -61,4 +61,4 @@ Negative Sampling 把“预测所有词”改成“区分真实上下文和噪�
 
 ## 和前一篇 Word2Vec 论文的关系
 
-如果说 [Efficient Estimation of Word Representations in Vector Space](./2026-07-29-efficient-estimation-of-word-representations-in-vector-space.html) 解决的是“怎样用 CBOW / Skip-gram 高效学词向量”，这篇论文解决的是“怎样让 Skip-gram 在更大语料上训练得更快，并扩展到短语”。两篇合起来，才更接近后来大家熟悉的 Word2Vec 工具体系。
+如果说 [Efficient Estimation of Word Representations in Vector Space 图解](./2026-07-29-efficient-estimation-of-word-representations-in-vector-space-comic.html) 解决的是“怎样用 CBOW / Skip-gram 高效学词向量”，这篇论文解决的是“怎样让 Skip-gram 在更大语料上训练得更快，并扩展到短语”。两篇合起来，才更接近后来大家熟悉的 Word2Vec 工具体系。

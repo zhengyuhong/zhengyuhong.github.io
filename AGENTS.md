@@ -27,9 +27,9 @@ Python 使用 4 空格缩进，HTML/CSS 使用 2 空格缩进。Python 函数应
 
 不要提交密钥、令牌、统计服务凭据或私人草稿。`CNAME` 必须保留在仓库根目录，并确保构建时复制到 `site/`。
 
-## AI Agent 论文图解发布规则
+## AI Agent 论文图解与幻灯片发布规则
 
-这些规则适用于 Codex、opencode、Claude Code、Cursor 等 AI Agent 在本仓库中生成或发布论文图解笔记。
+这些规则适用于 Codex、opencode、Claude Code、Cursor 等 AI Agent 在本仓库中生成或发布论文图解笔记、论文汇报幻灯片。
 
 ### 使用 paper-comic 时的默认要求
 
@@ -38,12 +38,23 @@ Python 使用 4 空格缩进，HTML/CSS 使用 2 空格缩进。Python 函数应
 - 默认视觉风格是 `sketchnote`，用途填写为“论文阅读笔记”。除非用户明确要求其他风格，否则不要改成 `paper-figure`。
 - 图解要尽量充分：在 `paper-comic` 允许的 1-10 页范围内，优先推荐能讲清方法流程、核心机制和关键结果的多图组合，不要只给一张概念封面图。推荐页数应随论文复杂度说明原因。
 - 每张图都要服务理解：图上必须有清晰流程、关键箭头、模块名、必要维度/公式/例子和短标注，避免只做装饰图。
+- 发布到本站时，front matter `title` 和正文 H1 必须在论文原题后追加“图解”，格式为 `<论文原题> 图解`；Markdown 文件名必须在论文标题 slug 后追加 `comic`，格式为 `notes/YYYY-MM-DD-<paper-title-slug>-comic.md`。
+
+### 使用 paper-deck 时的默认要求
+
+- 当用户要求使用 `paper-deck` 或 `/Users/zhengyuhong/.codex/skills/paper-deck/SKILL.md` 时，先读取该 skill，并保留其“先分析、确认页数/用途/风格/真实素材、写 deck brief/outline/prompts、再逐页生图并合成 PPTX/PDF”的工作流。
+- `paper-deck` 的默认内容规则要对齐 `paper-comic`：中文输出，围绕方法流程、核心机制和关键结果做多图解叙事；不要把大量篇幅花在相关工作、空泛背景、抽象灵感或次要消融上。
+- 默认用途是“论文汇报 / reading group / 技术分享”，默认视觉取向优先选择清晰、温暖、学术、信息密度高的风格，例如 `warm-notes` 或 `journal-minimal`；除非用户明确要求，不要改成商业路演、赛博、玻璃拟物等强风格。
+- 页数由 `paper-deck` 根据汇报场景推荐，但必须尽量多用机制图、流程图、局部放大框、真实论文图表/实验曲线来讲清楚“怎么做”和“为什么有效”。每页只承载一个主观点。
+- 产物目录、PPTX 和 PDF 文件名必须使用论文标题 slug 并追加 `deck`：`paper-deck/<paper-title-slug>-deck/`、`<paper-title-slug>-deck.pptx`、`<paper-title-slug>-deck.pdf`。英文论文标题转为小写 kebab-case，中文论文标题转为无声调拼音 kebab-case；不要用泛化主题、随意缩写或仅用 `deck`/`slides` 替代论文标题。
+- Deck 封面标题、`deck-brief.md`、`outline.md` 中的论文标题必须在论文原题后追加“解读”，格式为 `<论文原题> 解读`。不要改写成泛化中文标题；需要说明用途时放在副标题、备注或交付说明里。
+- 如果用户要求把 `paper-deck` 后续发布到 `zhengyuhong.github.io`，必须同时整理一篇 `notes/YYYY-MM-DD-<paper-title-slug>-deck.md`，front matter `title` 和正文 H1 使用 `<论文原题> 解读`，并在正文中链接 PPTX/PDF 或嵌入关键 slide 图片。
 
 ### 转成本站 Markdown 笔记
 
-- 最终产物必须发布为 `notes/YYYY-MM-DD-<paper-title-slug>.md`，不要只把结果留在 `papers/`、`output/`、`downloads/` 或 `tmp/`。文件名必须使用日期 + 论文标题 slug：英文论文标题转为小写 kebab-case，去掉标点；中文论文标题转为无声调拼音 kebab-case。不要用泛化主题、随意缩写或 `illustrated` 替代论文标题；只有标题过长时，才可保留论文主标题并省略副标题。
+- 最终产物必须发布为 `notes/YYYY-MM-DD-<paper-title-slug>-<type>.md`，不要只把结果留在 `papers/`、`output/`、`downloads/` 或 `tmp/`。文件名必须使用日期 + 论文标题 slug + skill 类型后缀：`paper-comic` 用 `-comic`，`paper-deck` 用 `-deck`。英文论文标题转为小写 kebab-case，去掉标点；中文论文标题转为无声调拼音 kebab-case。不要用泛化主题、随意缩写、`illustrated` 或无论文标题的 `deck/slides` 替代论文标题；只有标题过长时，才可保留论文主标题并省略副标题。
 - Markdown front matter 必须包含 `title`、`date`、`tags`、`summary`。`date` 与文件名前缀保持一致；`tags` 至少包含 `论文`、`论文图解`、`sketchnote`，并按论文主题补充 2-5 个标签。
-- 发布标题必须对齐论文标题：front matter `title` 和正文 H1 默认使用论文原题，不要改写成泛化中文标题，也不要追加“图解笔记”“深度解读”等后缀。需要强调图解属性时，用副标题、导语、摘要或标签表达，而不是替换论文原题。
+- 发布标题必须以论文原题为基础，并按 skill 加固定后缀：`paper-comic` 使用 `<论文原题> 图解`，`paper-deck` 使用 `<论文原题> 解读`。不要改写成泛化中文标题，也不要使用“图解笔记”“深度解读”“论文PPT”等其他后缀。需要说明用途时，用副标题、导语、摘要或标签表达，而不是替换论文原题。
 - 正文结构建议包含：论文链接、作者/会议或年份（如果可确认）、一句话总结、每张图的章节、图下中文讲解、最后 3 个核心要点。
 - 生成图片放到 `assets/images/<note-slug>/`，Markdown 中使用 `../assets/images/<note-slug>/<file>.png` 引用。不要引用本机绝对路径。
 - 如果 `paper-comic` 已在其他目录生成图片或草稿，需要把可发布的 Markdown 和图片整理到 `notes/` 与 `assets/images/` 后再构建。

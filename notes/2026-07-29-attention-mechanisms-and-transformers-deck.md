@@ -1,11 +1,11 @@
 ---
-title: D2L 注意力机制与 Transformer 图解笔记
+title: Attention Mechanisms and Transformers 解读
 date: 2026-07-29
 tags: [技术, 深度学习, Transformer, Attention, D2L]
 summary: 从 Q/K/V 的可微检索视角出发，串起注意力池化、打分函数、多头注意力、自注意力、位置编码、Transformer、ViT 和大规模预训练模型的共同骨架。
 ---
 
-# D2L 注意力机制与 Transformer 图解笔记
+# Attention Mechanisms and Transformers 解读
 
 这篇笔记来自 [Dive into Deep Learning 第 11 章 Attention Mechanisms and Transformers](https://d2l.ai/chapter_attention-mechanisms-and-transformers/index.html)。严格说，它不是单篇论文，而是一章教材：D2L 先从注意力机制的第一性原理讲起，再一步步走到 Transformer、ViT 和大规模预训练。
 
@@ -211,4 +211,3 @@ BERT、GPT、T5、ViT 都可以放在同一张地图里看。
 
 - [D2L: Attention Mechanisms and Transformers](https://d2l.ai/chapter_attention-mechanisms-and-transformers/index.html)
 - [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
-

@@ -1,11 +1,11 @@
 ---
-title: D2L 第 11 章 Attention Mechanisms and Transformers 深度解读
+title: Attention Mechanisms and Transformers 图解
 date: 2026-07-29
 tags: [技术, 深度学习, Transformer, Attention, D2L]
 summary: 从 QKV 注意力池化讲到多头、自注意力、位置编码、Transformer、ViT 和大规模预训练的系统解读，附中文 sketchnote 图解。
 ---
 
-# D2L 第 11 章 Attention Mechanisms and Transformers 深度解读
+# Attention Mechanisms and Transformers 图解
 
 标题：[Attention Mechanisms and Transformers](https://d2l.ai/chapter_attention-mechanisms-and-transformers/index.html)
 

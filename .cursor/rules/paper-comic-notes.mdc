@@ -1,8 +1,10 @@
 ---
-description: Paper-comic publishing defaults for zhengyuhong.cn notes
+description: Paper-comic and paper-deck publishing defaults for zhengyuhong.cn
 alwaysApply: true
 ---
 
 Follow `AGENTS.md` as the canonical project instruction file.
 
-When creating paper notes with `paper-comic`, default to Chinese `sketchnote` paper-reading notes with as many useful diagrams as the paper needs within the 1-10 page limit. Convert the final result into `notes/YYYY-MM-DD-<paper-title-slug>.md`; the slug must come from the paper title in lowercase kebab-case, or from pinyin kebab-case when the paper title is Chinese. Use the original paper title for front matter `title` and the body H1, without adding “图解笔记”, “深度解读”, generic rewrites, or arbitrary abbreviations. Put images in `assets/images/<note-slug>/`, build and test the site, and push the publication to `main` when the note is ready.
+When creating paper notes with `paper-comic`, default to Chinese `sketchnote` paper-reading notes with as many useful diagrams as the paper needs within the 1-10 page limit. Convert the final result into `notes/YYYY-MM-DD-<paper-title-slug>-comic.md`; the slug must come from the paper title in lowercase kebab-case, or from pinyin kebab-case when the paper title is Chinese. Use the original paper title plus “图解” for front matter `title` and the body H1, formatted as `<paper title> 图解`, without adding “图解笔记”, “深度解读”, generic rewrites, or arbitrary abbreviations. Put images in `assets/images/<note-slug>/`, build and test the site, and push the publication to `main` when the note is ready.
+
+When creating paper decks with `paper-deck`, keep the raster-first workflow and align the content defaults with `paper-comic`: Chinese output, method flow, core mechanisms, and key results, with as many useful diagrams, real paper figures, mechanism zoom-ins, and result visuals as the deck needs. Prefer warm, clear, academic styles such as `warm-notes` or `journal-minimal` unless the user asks otherwise. Use the original paper title plus “解读” on the cover and in deck metadata, formatted as `<paper title> 解读`, and use the paper-title slug plus `deck` for `paper-deck/<paper-title-slug>-deck/<paper-title-slug>-deck.pptx` and `.pdf`; use lowercase kebab-case for English titles or pinyin kebab-case for Chinese titles. If the deck is published to the site, also create `notes/YYYY-MM-DD-<paper-title-slug>-deck.md` with title/H1 `<paper title> 解读` and link the deck there.

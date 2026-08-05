@@ -1,11 +1,11 @@
 ---
-title: Sequence to Sequence Learning with Neural Networks
+title: Sequence to Sequence Learning with Neural Networks 图解
 date: 2026-08-04
 tags: [技术, 深度学习, 机器翻译, Seq2Seq, LSTM, 论文图解]
 summary: 图解 Sutskever、Vinyals 和 Le 2014 年的 Seq2Seq 论文：Encoder-Decoder LSTM 如何把序列压成向量再生成序列，为什么只反转 source 能显著降低优化难度，以及 beam search 与 reranking 如何带来强机器翻译结果。
 ---
 
-# Sequence to Sequence Learning with Neural Networks
+# Sequence to Sequence Learning with Neural Networks 图解
 
 论文：[Sequence to Sequence Learning with Neural Networks](https://arxiv.org/abs/1409.3215)
 

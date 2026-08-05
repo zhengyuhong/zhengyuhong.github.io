@@ -1,11 +1,11 @@
 ---
-title: Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation
+title: Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation 图解
 date: 2026-07-29
 tags: [技术, 深度学习, 机器翻译, RNN, Seq2Seq]
 summary: 图解 Cho et al. 2014 的 RNN Encoder-Decoder：短语如何被编码成向量、门控隐藏单元如何记忆与遗忘，以及神经短语分数如何接入传统 SMT。
 ---
 
-# Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation
+# Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation 图解
 
 论文：[Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation](https://arxiv.org/abs/1406.1078)
 

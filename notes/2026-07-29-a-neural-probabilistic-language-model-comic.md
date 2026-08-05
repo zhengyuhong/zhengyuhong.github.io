@@ -1,11 +1,11 @@
 ---
-title: A Neural Probabilistic Language Model
+title: A Neural Probabilistic Language Model 图解
 date: 2026-07-29
 tags: [技术, NLP, LLM, 论文, language-modeling]
 summary: Bengio 等人在 2003 年把语言模型从统计短片段计数推进到可联合学习词向量和概率函数的神经语言模型。
 ---
 
-# A Neural Probabilistic Language Model
+# A Neural Probabilistic Language Model 图解
 
 论文：[A Neural Probabilistic Language Model](https://jmlr.org/papers/volume3/bengio03a/bengio03a.pdf)，Yoshua Bengio, Réjean Ducharme, Pascal Vincent, Christian Jauvin，JMLR 2003。
 
