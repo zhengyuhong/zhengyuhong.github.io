@@ -45,6 +45,7 @@ Python 使用 4 空格缩进，HTML/CSS 使用 2 空格缩进。Python 函数应
 - 当用户要求使用 `paper-deck` 或 `/Users/zhengyuhong/.codex/skills/paper-deck/SKILL.md` 时，先读取该 skill，并保留其“先分析、确认页数/用途/风格/真实素材、写 deck brief/outline/prompts、再逐页生图并合成 PPTX/PDF”的工作流。
 - `paper-deck` 的默认内容规则要对齐 `paper-comic`：中文输出，围绕方法流程、核心机制和关键结果做多图解叙事；不要把大量篇幅花在相关工作、空泛背景、抽象灵感或次要消融上。
 - 默认用途是“论文汇报 / reading group / 技术分享”，默认视觉取向优先选择清晰、温暖、学术、信息密度高的风格，例如 `warm-notes` 或 `journal-minimal`；除非用户明确要求，不要改成商业路演、赛博、玻璃拟物等强风格。
+- 如果用户的主要目标是“自己读论文”“做论文笔记”“自学复盘”，则用途优先填写“论文阅读笔记 / 自学复盘”，视觉优先使用 `warm-notes` 的 sketchnote 语义：中文短标注、手绘感流程箭头、机制拆解、公式旁注、局部放大框和真实论文图表辅助。页数可以比正式汇报更紧凑，优先讲清方法和关键结果，不为演讲节奏硬塞背景页。
 - 页数由 `paper-deck` 根据汇报场景推荐，但必须尽量多用机制图、流程图、局部放大框、真实论文图表/实验曲线来讲清楚“怎么做”和“为什么有效”。每页只承载一个主观点。
 - 产物目录、PPTX 和 PDF 文件名必须使用论文标题 slug 并追加 `deck`：`paper-deck/<paper-title-slug>-deck/`、`<paper-title-slug>-deck.pptx`、`<paper-title-slug>-deck.pdf`。英文论文标题转为小写 kebab-case，中文论文标题转为无声调拼音 kebab-case；不要用泛化主题、随意缩写或仅用 `deck`/`slides` 替代论文标题。
 - Deck 封面标题、`deck-brief.md`、`outline.md` 中的论文标题必须在论文原题后追加“解读”，格式为 `<论文原题> 解读`。不要改写成泛化中文标题；需要说明用途时放在副标题、备注或交付说明里。
