@@ -7,7 +7,7 @@ summary: 图解一篇 GPT 系列学习笔记：从 GPT-1 的 Pretrain + Finetune
 
 # GPT详解记录 图解
 
-原文：[GPT详解记录](https://zhuanlan.zhihu.com/p/626899354)
+原文链接：[https://zhuanlan.zhihu.com/p/626899354](https://zhuanlan.zhihu.com/p/626899354)
 
 作者：pppppx
 
