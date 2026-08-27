@@ -78,6 +78,74 @@ This is **important**.
             '<link rel="icon" href="{{ asset_prefix }}assets/favicon.svg" type="image/svg+xml">',
             layout,
         )
+        self.assertTrue((root / "assets" / "search.js").exists())
+        self.assertIn(
+            '<script defer src="{{ asset_prefix }}assets/search.js"></script>',
+            layout,
+        )
+
+    def test_homepage_includes_search_mount(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            self.write_layout(root)
+            self.write_note(
+                root,
+                "2026-07-21-searchable.md",
+                """---
+title: Searchable Note
+date: 2026-07-21
+tags: [search, notes]
+summary: A searchable summary.
+---
+
+Body
+""",
+            )
+            (root / "CNAME").write_text("zhengyuhong.cn\n", encoding="utf-8")
+
+            build_site(root)
+
+            index_html = (root / "site" / "index.html").read_text(encoding="utf-8")
+            self.assertIn('class="content-section search-section"', index_html)
+            self.assertIn("data-search-root", index_html)
+            self.assertIn('id="site-search-input"', index_html)
+            self.assertIn('role="status" aria-live="polite"', index_html)
+
+    def test_note_page_exposes_pagefind_metadata_and_filters(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            self.write_layout(root)
+            self.write_note(
+                root,
+                "2026-07-21-pagefind.md",
+                """---
+title: Pagefind Note
+date: 2026-07-21
+tags: [C++, 长期思考]
+summary: A Pagefind summary.
+---
+
+Body
+""",
+            )
+            (root / "CNAME").write_text("zhengyuhong.cn\n", encoding="utf-8")
+
+            build_site(root)
+
+            note_html = (root / "site" / "notes" / "2026-07-21-pagefind.html").read_text(encoding="utf-8")
+            self.assertIn("data-pagefind-body", note_html)
+            self.assertIn('data-pagefind-meta="title"', note_html)
+            self.assertIn('data-pagefind-meta="date"', note_html)
+            self.assertIn('data-pagefind-meta="summary"', note_html)
+            self.assertIn('data-pagefind-meta="tags:C++ 长期思考"', note_html)
+            self.assertIn(
+                'data-pagefind-filter="tag[data-pagefind-tag]" data-pagefind-tag="C++"',
+                note_html,
+            )
+            self.assertIn(
+                'data-pagefind-filter="tag[data-pagefind-tag]" data-pagefind-tag="长期思考"',
+                note_html,
+            )
 
     def test_build_site_uses_raw_tag_ids_and_encoded_tag_fragments(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -157,7 +225,7 @@ Body
             build_site(root)
 
             note_html = (root / "site" / "notes" / "2026-07-21-duplicate-title.html").read_text(encoding="utf-8")
-            self.assertEqual(note_html.count("<h1>Duplicate Title</h1>"), 1)
+            self.assertEqual(note_html.count('<h1 data-pagefind-meta="title">Duplicate Title</h1>'), 1)
 
     def test_strip_duplicate_title_accepts_equivalent_atx_h1_forms(self) -> None:
         self.assertEqual(strip_duplicate_title("# Duplicate Title #\n\nBody", "Duplicate Title"), "Body")

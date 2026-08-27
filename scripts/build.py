@@ -149,12 +149,20 @@ def load_notes(notes_dir: Path) -> list[Note]:
     return sorted(notes, key=lambda note: (note.date, note.title), reverse=True)
 
 
-def tag_link(tag: str, base: str = "") -> str:
-    return f'<a class="tag" href="{base}#tag-{tag_fragment(tag)}">#{escape(tag)}</a>'
+def tag_link(tag: str, base: str = "", pagefind_filter: bool = False) -> str:
+    pagefind_attrs = ""
+    if pagefind_filter:
+        pagefind_attrs = (
+            ' data-pagefind-filter="tag[data-pagefind-tag]"'
+            f' data-pagefind-tag="{escape(tag, quote=True)}"'
+        )
+    return f'<a class="tag" href="{base}#tag-{tag_fragment(tag)}"{pagefind_attrs}>#{escape(tag)}</a>'
 
 
-def render_tag_links(tags: tuple[str, ...], base: str = "") -> str:
-    return '<span class="tag-list">' + "".join(tag_link(tag, base) for tag in tags) + "</span>"
+def render_tag_links(tags: tuple[str, ...], base: str = "", pagefind_filters: bool = False) -> str:
+    return '<span class="tag-list">' + "".join(
+        tag_link(tag, base, pagefind_filter=pagefind_filters) for tag in tags
+    ) + "</span>"
 
 
 def render_note_card(note: Note) -> str:
@@ -165,6 +173,21 @@ def render_note_card(note: Note) -> str:
   <p>{escape(note.summary)}</p>
   {render_tag_links(note.tags)}
 </article>
+""".strip()
+
+
+def render_search_panel() -> str:
+    return """
+<section class="content-section search-section" id="search">
+  <h2>站内搜索</h2>
+  <div class="search-panel" data-search-root>
+    <label class="search-label" for="site-search-input">搜索笔记</label>
+    <input class="search-input" id="site-search-input" type="search" placeholder="标题、标签、正文" autocomplete="off" data-search-input>
+    <div class="search-filters" data-search-filters hidden></div>
+    <p class="search-status" data-search-status role="status" aria-live="polite">输入关键词开始搜索。</p>
+    <div class="search-results" data-search-results></div>
+  </div>
+</section>
 """.strip()
 
 
@@ -211,6 +234,8 @@ def render_index(notes: list[Note]) -> str:
   <p>{SITE_DESCRIPTION}<br><a href="mailto:{escape(SITE_EMAIL)}">{escape(SITE_EMAIL)}</a></p>
 </section>
 
+{render_search_panel()}
+
 <section class="content-section">
   <h2>最新笔记</h2>
   <div class="note-list">{note_cards}</div>
@@ -224,16 +249,17 @@ def render_index(notes: list[Note]) -> str:
 
 
 def render_note_page(note: Note) -> str:
+    tag_metadata = " ".join(note.tags)
     return f"""
 <article class="note-page">
   <nav class="breadcrumb"><a href="../index.html">首页</a></nav>
-  <header class="note-header">
-    <p class="note-date">{note.date.isoformat()}</p>
-    <h1>{escape(note.title)}</h1>
-    <p>{escape(note.summary)}</p>
-    {render_tag_links(note.tags, "../index.html")}
+  <header class="note-header" data-pagefind-meta="tags:{escape(tag_metadata, quote=True)}">
+    <p class="note-date" data-pagefind-meta="date">{note.date.isoformat()}</p>
+    <h1 data-pagefind-meta="title">{escape(note.title)}</h1>
+    <p data-pagefind-meta="summary">{escape(note.summary)}</p>
+    {render_tag_links(note.tags, "../index.html", pagefind_filters=True)}
   </header>
-  <div class="prose">
+  <div class="prose" data-pagefind-body>
     {note.body_html}
   </div>
 </article>

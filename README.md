@@ -26,6 +26,7 @@ summary: 用一句话概括这篇笔记。
 ```bash
 pip install -r requirements.txt
 python3 scripts/build.py
+npx -y pagefind@1.5.2 --site site
 python3 -m http.server 8000 -d site
 ```
 
