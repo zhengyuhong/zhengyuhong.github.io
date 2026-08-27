@@ -171,6 +171,10 @@ h2 {
   border-bottom: 1px solid var(--line);
 }
 
+.note-header h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+}
+
 .note-header p {
   color: var(--muted);
 }
