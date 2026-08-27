@@ -234,8 +234,6 @@ def render_index(notes: list[Note]) -> str:
   <p>{SITE_DESCRIPTION}<br><a href="mailto:{escape(SITE_EMAIL)}">{escape(SITE_EMAIL)}</a></p>
 </section>
 
-{render_search_panel()}
-
 <section class="content-section">
   <h2>最新笔记</h2>
   <div class="note-list">{note_cards}</div>
@@ -245,6 +243,8 @@ def render_index(notes: list[Note]) -> str:
   <h2>标签索引</h2>
   <div class="tag-index">{render_tag_index(notes)}</div>
 </section>
+
+{render_search_panel()}
 """.strip()
 
 

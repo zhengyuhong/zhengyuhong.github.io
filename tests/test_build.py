@@ -110,6 +110,8 @@ Body
             self.assertIn("data-search-root", index_html)
             self.assertIn('id="site-search-input"', index_html)
             self.assertIn('role="status" aria-live="polite"', index_html)
+            self.assertLess(index_html.index("<h2>最新笔记</h2>"), index_html.index('id="search"'))
+            self.assertLess(index_html.index("<h2>标签索引</h2>"), index_html.index('id="search"'))
 
     def test_note_page_exposes_pagefind_metadata_and_filters(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
