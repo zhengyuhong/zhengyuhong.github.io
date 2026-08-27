@@ -172,7 +172,7 @@ h2 {
 }
 
 .note-header h1 {
-  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-size: clamp(1.55rem, 3.6vw, 2.35rem);
 }
 
 .note-header p {
