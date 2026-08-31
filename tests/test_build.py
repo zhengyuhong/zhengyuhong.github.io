@@ -83,6 +83,18 @@ This is **important**.
             '<script defer src="{{ asset_prefix }}assets/search.js"></script>',
             layout,
         )
+        self.assertTrue((root / "assets" / "vendor" / "katex" / "katex.min.css").exists())
+        self.assertTrue((root / "assets" / "vendor" / "katex" / "katex.min.js").exists())
+        self.assertTrue((root / "assets" / "vendor" / "katex" / "auto-render.min.js").exists())
+        self.assertIn(
+            '<link rel="stylesheet" href="{{ asset_prefix }}assets/vendor/katex/katex.min.css">',
+            layout,
+        )
+        self.assertIn(
+            '<script defer src="{{ asset_prefix }}assets/vendor/katex/katex.min.js"></script>',
+            layout,
+        )
+        self.assertIn("document.addEventListener(\"DOMContentLoaded\"", layout)
 
     def test_homepage_includes_search_mount(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
