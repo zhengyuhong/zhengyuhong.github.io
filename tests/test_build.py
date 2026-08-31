@@ -95,6 +95,11 @@ This is **important**.
             layout,
         )
         self.assertIn("document.addEventListener(\"DOMContentLoaded\"", layout)
+        self.assertIn(
+            '<script async src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"',
+            layout,
+        )
+        self.assertIn('onload="initializeMermaid()"', layout)
 
     def test_homepage_includes_search_mount(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

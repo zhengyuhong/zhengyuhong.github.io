@@ -24,8 +24,22 @@
         });
       });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-    <script>mermaid.initialize({startOnLoad:true,theme:'default',securityLevel:'loose'});</script>
+    <script>
+      function initializeMermaid() {
+        if (typeof mermaid === "undefined") return;
+        mermaid.initialize({startOnLoad: false, theme: "default", securityLevel: "loose"});
+        const render = function () {
+          mermaid.run({querySelector: ".mermaid"});
+        };
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", render, {once: true});
+        } else {
+          render();
+        }
+      }
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"
+      onload="initializeMermaid()"></script>
   </head>
   <body class="{{ body_class }}">
     <header class="site-header">
