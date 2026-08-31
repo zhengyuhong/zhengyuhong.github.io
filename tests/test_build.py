@@ -91,10 +91,14 @@ This is **important**.
             layout,
         )
         self.assertIn(
-            '<script defer src="{{ asset_prefix }}assets/vendor/katex/katex.min.js"></script>',
+            '<script src="{{ asset_prefix }}assets/vendor/katex/katex.min.js"></script>',
             layout,
         )
-        self.assertIn("document.addEventListener(\"DOMContentLoaded\"", layout)
+        self.assertGreater(
+            layout.index('<script src="{{ asset_prefix }}assets/vendor/katex/katex.min.js"></script>'),
+            layout.index("</footer>"),
+        )
+        self.assertIn('if (typeof renderMathInElement === "function")', layout)
         self.assertIn(
             '<script async src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"',
             layout,

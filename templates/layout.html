@@ -9,21 +9,6 @@
     <link rel="stylesheet" href="{{ asset_prefix }}assets/style.css">
     <script defer src="{{ asset_prefix }}assets/search.js"></script>
     <link rel="stylesheet" href="{{ asset_prefix }}assets/vendor/katex/katex.min.css">
-    <script defer src="{{ asset_prefix }}assets/vendor/katex/katex.min.js"></script>
-    <script defer src="{{ asset_prefix }}assets/vendor/katex/auto-render.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        if (typeof renderMathInElement !== "function") return;
-        renderMathInElement(document.body, {
-          delimiters: [
-            {left: "$$", right: "$$", display: true},
-            {left: "\\(", right: "\\)", display: false},
-            {left: "\\[", right: "\\]", display: true},
-            {left: "$", right: "$", display: false}
-          ]
-        });
-      });
-    </script>
     <script>
       function initializeMermaid() {
         if (typeof mermaid === "undefined") return;
@@ -54,5 +39,19 @@
     <footer class="site-footer">
       <p>这里记录技术、思考和长期积累的笔记。</p>
     </footer>
+    <script src="{{ asset_prefix }}assets/vendor/katex/katex.min.js"></script>
+    <script src="{{ asset_prefix }}assets/vendor/katex/auto-render.min.js"></script>
+    <script>
+      if (typeof renderMathInElement === "function") {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "\\(", right: "\\)", display: false},
+            {left: "\\[", right: "\\]", display: true},
+            {left: "$", right: "$", display: false}
+          ]
+        });
+      }
+    </script>
   </body>
 </html>
