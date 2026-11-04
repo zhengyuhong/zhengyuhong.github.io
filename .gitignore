@@ -8,3 +8,4 @@ daily-paper/
 downloads/
 papers/
 tmp/
+.deps/
